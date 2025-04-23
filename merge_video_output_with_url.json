@@ -20,6 +20,18 @@
     "url": "https://aliang-line-bot.web.app/ep8.mp4",
     "thumb_url": "https://aliang-line-bot.web.app/ep8.jpg"
   },
+ 
+
+  {
+    "episode": "27",
+    "video_name": "v00027",
+    "text": "白鳥的頭當球運--麗子篇",
+    "url": "https://aliang-line-bot.web.app/ep27.mp4",
+    "thumb_url": "https://aliang-line-bot.web.app/ep27.jpg"
+  },
+  
+
+
   {
     "episode": "32",
     "video_name": "v00004",
@@ -34,6 +46,17 @@
     "url": "https://aliang-line-bot.web.app/ep37.mp4",
     "thumb_url": "https://aliang-line-bot.web.app/ep37.jpg"
   },
+
+  {
+    "episode": "38",
+    "video_name": "v00038",
+    "text": "白鳥的頭當球運--中川篇",
+    "url": "https://aliang-line-bot.web.app/ep38.mp4",
+    "thumb_url": "https://aliang-line-bot.web.app/ep38.jpg"
+  },
+
+
+
   {
     "episode": "40",
     "video_name": "v00006",
