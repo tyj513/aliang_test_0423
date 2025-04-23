@@ -820,6 +820,7 @@ def create_media_flex_message(media_data, media_type="image"):
     media_id = media_data.get(id_key, "未知")
     media_text = media_data.get("text", "")
     img_url = media_data.get("url", "") # 假設影片也用 url 欄位存封面圖
+    video_img_url = media_data.get("thumb_url", "") # 影片的封面圖 URL
     episode_number = str(media_data.get("episode", "未知"))
     # 假設 episode_titles 仍然是全局可訪問的
     episode_title = episode_titles.get(episode_number, "未知集數")
@@ -834,7 +835,7 @@ def create_media_flex_message(media_data, media_type="image"):
         "type": "bubble",
         "hero": {
             "type": "image",
-            "url": img_url,
+            "url": img_url if media_type == "image" else (video_img_url),
             "size": "full",
             "aspectRatio": "16:9",
             "aspectMode": "cover"
