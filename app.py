@@ -722,7 +722,7 @@ def create_quick_reply(arg):
         elif arg == "video":
             buttons = [
                 ("切換到圖片模式", "/image"),
-                ("抽影片", "抽影片"),
+                # ("抽影片", "抽影片"),
                 ("選單", "menu")
             ]
         else:
@@ -898,10 +898,7 @@ def handle_message(event):
         "🎥 方法三：輸入「v關鍵字」找影片！\n"
         "如果想看有哪些爆炸名場面？就打「v爆炸」\n"
         "（範例：v火災）\n\n"
-
-        "🎥 方法四：太懶？那就打「抽影片」！\n"
-        "交給我本人，幫你隨機播一部，包準驚喜！\n\n"
-
+ 
         "行啦，教學結束！再不懂我可要開罵了喔 😠\n"
         "快給我用用看！我還要回去看看三角機器人有沒有被所長亂動…！\n"
     )
@@ -913,8 +910,9 @@ def handle_message(event):
         
         # 建立快速回覆按鈕
         quick_reply = create_quick_reply([
-            ("抽圖片", "抽"),
-            ("抽影片", "抽影片")
+            ("選單", "menu"),
+            ("抽圖片", "抽")
+            # ("抽影片", "抽影片")
         ])
         
         line_bot_api.reply_message(
@@ -947,30 +945,30 @@ def handle_message(event):
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text="無法抽取圖片，請確認數據已正確加載。"))
         return
     
-    elif message == "抽影片":
-        random_v = random_video()
-        if random_v:
-            print(f"隨機抽取的影片: {random_v}")  # Debugging line
-            # 使用圖片編號創建適合的快速回覆按鈕
-            video_number = random_v['video_name']
-            quick_reply = create_quick_reply([
-                ("集數資訊", f"info:{video_number}"),
-                ("再抽一次", "抽"),
-                ("選單", "menu")
-            ]) 
+    # elif message == "抽影片":
+    #     random_v = random_video()
+    #     if random_v:
+    #         print(f"隨機抽取的影片: {random_v}")  # Debugging line
+    #         # 使用圖片編號創建適合的快速回覆按鈕
+    #         video_number = random_v['video_name']
+    #         quick_reply = create_quick_reply([
+    #             ("集數資訊", f"info:{video_number}"),
+    #             ("再抽一次", "抽"),
+    #             ("選單", "menu")
+    #         ]) 
 
 
-            line_bot_api.reply_message(
-                event.reply_token,
-                VideoSendMessage(
-                    original_content_url=random_v['url'],
-                    preview_image_url=vid_data.get('preview_url', vid_data['url']) ,# 假設預覽圖 URL
-                    quick_reply=quick_reply
-                )
-            )
-        else:
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text="無法抽取圖片，請確認數據已正確加載。"))
-        return
+    #         line_bot_api.reply_message(
+    #             event.reply_token,
+    #             VideoSendMessage(
+    #                 original_content_url=random_v['url'],
+    #                 preview_image_url=vid_data.get('preview_url', vid_data['url']) ,# 假設預覽圖 URL
+    #                 quick_reply=quick_reply
+    #             )
+    #         )
+    #     else:
+    #         line_bot_api.reply_message(event.reply_token, TextSendMessage(text="無法抽取圖片，請確認數據已正確加載。"))
+    #     return
     
     elif message == "v": 
         # 顯示所有影片列表
@@ -998,7 +996,7 @@ def handle_message(event):
         # 建立快速回覆按鈕
         quick_reply = create_quick_reply([
             ("選單", "menu"),
-            ("抽影片", "抽影片")
+            ("抽圖片", "抽")
         ])
         
         # 回覆訊息
@@ -1038,7 +1036,7 @@ def handle_message(event):
             id_key_to_search = 'video_name'
             max_id_num = MAX_VIDEO_ID
             nav_labels = ("上一部影片", "下一部影片")
-            random_cmd = "抽影片" # 假設有抽影片指令
+            # random_cmd = "抽影片" # 假設有抽影片指令
         elif prefix == 'e':
             media_type = "image"
             data_list_to_search = image_data
@@ -1177,8 +1175,8 @@ def handle_message(event):
             vid_quick_reply = create_quick_reply([
                 ("上一部影片", prev_vid_num_str),
                 ("下一部影片", next_vid_num_str),
-                ("集數資訊", f"info:{normalized_message}"), # 可能需要不同的 info 前綴或處理方式
-                ("抽影片", "抽影片") # 假設有抽影片功能
+                ("集數資訊", f"info:{normalized_message}")# 可能需要不同的 info 前綴或處理方式
+                # ("抽影片", "抽影片") # 假設有抽影片功能
             ]) 
             reply_messages.append(
                 VideoSendMessage(
@@ -1265,8 +1263,8 @@ def handle_message(event):
             reply_message = "找不到符合的影片名稱。"
 
         quick_reply = create_quick_reply([
-            ("選單", "menu"),
-            ("抽影片", "抽")
+            ("選單", "menu")
+            # ("抽影片", "抽")
         ])
         
         line_bot_api.reply_message(
