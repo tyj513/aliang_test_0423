@@ -950,19 +950,21 @@ def handle_message(event):
     elif message == "抽影片":
         random_v = random_video()
         if random_v:
+            print(f"隨機抽取的影片: {random_v}")  # Debugging line
             # 使用圖片編號創建適合的快速回覆按鈕
             video_number = random_v['video_name']
             quick_reply = create_quick_reply([
                 ("集數資訊", f"info:{video_number}"),
                 ("再抽一次", "抽"),
                 ("選單", "menu")
-            ])
-            
+            ]) 
+
+
             line_bot_api.reply_message(
                 event.reply_token,
-                ImageSendMessage(
+                VideoSendMessage(
                     original_content_url=random_v['url'],
-                    preview_image_url=random_v['url'],
+                    preview_image_url=vid_data.get('preview_url', vid_data['url']) ,# 假設預覽圖 URL
                     quick_reply=quick_reply
                 )
             )
@@ -1177,9 +1179,7 @@ def handle_message(event):
                 ("下一部影片", next_vid_num_str),
                 ("集數資訊", f"info:{normalized_message}"), # 可能需要不同的 info 前綴或處理方式
                 ("抽影片", "抽影片") # 假設有抽影片功能
-            ])
-            # 注意: LINE SDK 不直接支持在 VideoSendMessage 上附加 QuickReply。
-            # 你可能需要先發送 VideoSendMessage，再發送一個帶有 QuickReply 的 TextSendMessage。
+            ]) 
             reply_messages.append(
                 VideoSendMessage(
                     original_content_url=vid_data['url'],
