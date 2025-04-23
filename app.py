@@ -1068,13 +1068,21 @@ def handle_message(event):
             else:
                 next_num_str = normalized_id # 如果是最後一項，"下一項" 指向自己或禁用
 
-            # --- 建立 Quick Reply 按鈕 ---
+
+
+
             quick_reply_buttons = [
-                (nav_labels[0], prev_num_str), # 上一項按鈕
-                (nav_labels[1], next_num_str), # 下一項按鈕
-                (random_cmd, random_cmd),     # 對應的隨機指令
+                (nav_labels[0], prev_num_str),
+                (nav_labels[1], next_num_str),
                 ("選單", "menu")
             ]
+
+            # 只有圖片時才加入抽的指令
+            if prefix == 'e':
+                quick_reply_buttons.insert(2, ("抽", "抽"))
+
+
+ 
             # 過濾掉指向自己的導航按鈕 (可選)
             quick_reply_buttons_filtered = [(label, text) for label, text in quick_reply_buttons if text != normalized_id or label in [random_cmd, "選單"]]
 
